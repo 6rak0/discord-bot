@@ -19,14 +19,25 @@ module.exports = {
 		const queryGames = allGames.filter(game => game.title.includes(query));
 		if(!queryGames[0]) return message.channel.send(`${query} no encontrado, revisa la escritura`);
 		queryGames.map(async (game) => {
-			const data = await getPrices('MX', game.nsuid);
-			console.log(game);
-			const embed = new MessageEmbed()
-				.setColor('#EC1A28')
-				.setTitle(game.title)
-				.setThumbnail(`https://nintendo.com${game.boxArt}`)
-				.addField('Precio:', `${data.prices[0].regular_price.amount}`);
-			message.channel.send(embed);
+			let data = await getPrices('MX', game.nsuid);
+			data = data.prices[0];
+			if(data.discount_price) {
+				const embed = new MessageEmbed()
+					.setColor('#EC1A28')
+					.setTitle(game.title)
+					.setThumbnail(`https://nintendo.com${game.boxArt}`)
+					.addField('Precio:', `${data.regular_price.amount}`, true)
+					.addField(`Oferta hasta el ${data.discount_price.end_datetime.split('T')[0]}:`, `${data.discount_price.amount}`, true);
+				message.channel.send(embed);
+			}
+			else {
+				const embed = new MessageEmbed()
+					.setColor('#EC1A28')
+					.setTitle(game.title)
+					.setThumbnail(`https://nintendo.com${game.boxArt}`)
+					.addField('Precio:', `${data.regular_price.amount}`);
+				message.channel.send(embed);
+			}
 		});
 	},
 };
