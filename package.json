@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "call-of-duty-api": "^1.1.7",
     "discord.js": "^12.0.2",
     "nintendo-switch-eshop": "^3.0.1",
