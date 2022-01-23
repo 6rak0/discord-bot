@@ -1,21 +1,25 @@
+const { SlashCommandBuilder } = require('@discordjs/builders')
+
 module.exports = {
-	name: 'delete',
-	description: 'borra una cantidad de mensajes definida por el usuario',
-	aliases:['borrar', 'borra'],
-	args: true,
-	cooldown: 5,
-	usage:'<número de mensajes a borrar>',
-	execute(message, args) {
-		const amount = parseInt(args[0]) + 1;
-		if(isNaN(amount)) {
-			return message.reply(`ese no es número válido ${message.author}`);
+	data: new SlashCommandBuilder()
+		.setName('borrar')
+		.setDescription('borra una cantida de mensajes definida por el usuario')
+		.setDefaultPermission(false)
+		.addIntegerOption((option) =>
+			option.setName('cantidad').setDescription('número de mensajes a borrar').setRequired(true)
+		),
+	async execute(interaction) {
+		const amount = interaction.options.getInteger('cantidad')
+		if (amount <= 1 || amount > 100) {
+			return interaction.reply({ content: 'la cantidad es entre 1 y 99', ephemeral: true })
 		}
-		else if(amount <= 1 || amount > 100) {
-			return message.reply(`introduce un número entre 1 y 99${message.author}`);
-		}
-		message.channel.bulkDelete(args[0]).catch(err=>{
-			console.error(err);
-			message.channel.send('ocurrió un error tratando de eliminar los mensajes');
-		});
-	},
-};
+		await interaction.channel.bulkDelete(amount, true).catch((error) => {
+			console.error(error)
+			interaction.reply({
+				content: 'ocurrió un error al intentar borrar los mensajes de este canal',
+				ephemeral: true
+			})
+		})
+		return interaction.reply({ content: 'mensajes borrados con éxito', ephemeral: true })
+	}
+}
