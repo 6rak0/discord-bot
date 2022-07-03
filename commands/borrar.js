@@ -11,7 +11,7 @@ module.exports = {
 	async execute(interaction) {
 		const amount = interaction.options.getInteger('cantidad')
 		if (amount <= 1 || amount > 100) {
-			return interaction.reply({ content: 'la cantidad es entre 1 y 99', ephemeral: true })
+			return interaction.reply({ content: 'la cantidad es entre 2 y 99', ephemeral: true })
 		}
 		await interaction.channel.bulkDelete(amount, true).catch((error) => {
 			console.error(error)
