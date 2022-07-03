@@ -5,7 +5,7 @@ module.exports = {
 	once: true,
 	execute(client) {
 		console.log(`${client.user.tag} está ahora en línea`)
-		client.user.setActivity('Existence is pain!', { type: 'PLAYING' })
+		client.user.setActivity('Mono enojado', { type: 'WATCHING' })
 		// client.guilds.cache
 		// 	.get(guildId)
 		// 	?.commands.fetch()

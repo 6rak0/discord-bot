@@ -15,7 +15,7 @@ module.exports = {
 					.addChoices(
 						{ name: 'pc', value: 'pc' },
 						{ name: 'steam', value: 'steam' },
-						{ name: 'epic', value: 'epic-game-store' },
+						{ name: 'epic', value: 'epic-games-store' },
 						{ name: 'ubisoft', value: 'ubisoft' },
 						{ name: 'origin', value: 'origin' },
 						{ name: 'switch', value: 'switch' },
