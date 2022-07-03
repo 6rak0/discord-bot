@@ -5,23 +5,35 @@ const { getFreeGames } = require('../lib/utils')
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('gratis')
-		.setDescription('responde con los juegos gratis del momento')
-		.addStringOption((option) =>
-			option
-				.setName('plataforma')
-				.setDescription('plataforma')
-				.setRequired(true)
-				.addChoices([
-					['pc', 'pc'],
-					['steam', 'steam'],
-					['epic', 'epic-games-store'],
-					['ubisoft', 'ubisoft'],
-					['origin', 'origin'],
-					['switch', 'switch'],
-					['play station', 'ps4.ps5'],
-					['xbox', 'xbox-one.xbox-series-xs'],
-					['battlenet', 'battlenet']
-				])
+		.setDescription('te envío una lista de juegos gratis')
+		.addStringOption(
+			(option) =>
+				option
+					.setName('plataforma')
+					.setDescription('plataforma')
+					.setRequired(true)
+					.addChoices(
+						{ name: 'pc', value: 'pc' },
+						{ name: 'steam', value: 'steam' },
+						{ name: 'epic', value: 'epic-game-store' },
+						{ name: 'ubisoft', value: 'ubisoft' },
+						{ name: 'origin', value: 'origin' },
+						{ name: 'switch', value: 'switch' },
+						{ name: 'battlenet', value: 'battlenet' },
+						{ name: 'play station', value: 'ps4.ps5' },
+						{ name: 'xbox', value: 'xbox-one.xbox-series-xs' }
+					)
+			// .addChoices([
+			// 	['pc', 'pc'],
+			// 	['steam', 'steam'],
+			// 	['epic', 'epic-games-store'],
+			// 	['ubisoft', 'ubisoft'],
+			// 	['origin', 'origin'],
+			// 	['switch', 'switch'],
+			// 	['play station', 'ps4.ps5'],
+			// 	['xbox', 'xbox-one.xbox-series-xs'],
+			// 	['battlenet', 'battlenet']
+			// ])
 		),
 	async execute(interaction) {
 		const platform = interaction.options.getString('plataforma')
@@ -47,7 +59,7 @@ module.exports = {
 				await interaction.user.send({ embeds: [embed] })
 			})
 			return interaction.reply({
-				content: 'se han enviado los juegos gratis por mensaje directo',
+				content: 'te envié los juegos por mensaje directo',
 				ephemeral: true
 			})
 		}
