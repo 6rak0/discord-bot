@@ -36,10 +36,11 @@ module.exports = {
 			// ])
 		),
 	async execute(interaction) {
+		await interaction.deferReply({ ephemeral: true })
 		const platform = interaction.options.getString('plataforma')
 		const games = await getFreeGames(platform)
 		if (!games) {
-			return interaction.reply({
+			return interaction.editReply({
 				content: 'no hay juegos gratuitos disponibles por el momento',
 				ephemeral: true
 			})
@@ -58,7 +59,7 @@ module.exports = {
 					.setImage(game.thumbnail)
 				await interaction.user.send({ embeds: [embed] })
 			})
-			return interaction.reply({
+			return interaction.editReply({
 				content: 'te envié los juegos por mensaje directo',
 				ephemeral: true
 			})
