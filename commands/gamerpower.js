@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
-const { MessageEmbed } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const { getFreeGames } = require('../lib/utils')
 
 module.exports = {
@@ -46,7 +45,7 @@ module.exports = {
 			})
 		} else {
 			games.forEach(async (game) => {
-				const embed = new MessageEmbed()
+				const embed = new EmbedBuilder()
 					.setColor('#0ff1c3')
 					.setTitle(game.title)
 					.setURL(game.open_giveaway_url)

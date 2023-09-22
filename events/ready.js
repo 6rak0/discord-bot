@@ -1,25 +1,10 @@
-// const { guildId, permissions } = require('../config.json')
-
+const {Events} = require('discord.js')
 module.exports = {
-	name: 'ready',
+	name: Events.ClientReady,
 	once: true,
 	execute(client) {
-		console.log(`${client.user.tag} está ahora en línea`)
-		client.user.setActivity('mono enojado', { type: 'WATCHING' })
-		// client.guilds.cache
-		// 	.get(guildId)
-		// 	?.commands.fetch()
-		// 	.then((collection) => {
-		// 		collection.forEach((command) => {
-		// 			if (command.name === `borrar`) {
-		// 				command.permissions
-		// 					.add({ permissions })
-		// 					// client.application.command.permissions
-		// 					// 	.add({ permissions })
-		// 					.catch(console.log)
-		// 			}
-		// 		})
-		// 	})
-		// 	.catch(console.log)
+		console.log(`${client.user.tag} está ahora en línea con ${client.users.size} usuarios en ${client.channels.size} canales de ${client.guilds.size} servidores`)
+		client.user.setActivity('Visual Studio Code')
+		console.log(client)
 	}
 }

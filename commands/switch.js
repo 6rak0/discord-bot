@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
-const { MessageEmbed } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const { getGamesAmerica, getPrices } = require('nintendo-switch-eshop')
 
 module.exports = {
@@ -26,7 +25,7 @@ module.exports = {
 			let data = await getPrices('MX', game.nsuid)
 			data = data.prices[0]
 			if (data.discount_price) {
-				const embed = new MessageEmbed()
+				const embed = new EmbedBuilder()
 					.setColor('#EC1A28')
 					.setTitle(game.title)
 					.setURL(`https://nintendo.com${game.url}`)
@@ -38,12 +37,12 @@ module.exports = {
 					)
 				await interaction.user.send({ embeds: [embed] })
 			} else {
-				const embed = new MessageEmbed()
+				const embed = new EmbedBuilder()
 					.setColor('#EC1A28')
 					.setTitle(game.title)
 					.setURL(`https://nintendo.com${game.url}`)
 					.setImage(`${game.horizontalHeaderImage}.jpg`)
-					.addField('precio:', `${data.regular_price.amount}`)
+					.addFields({ name: 'precio:', value: data.regular_price.amount })
 				await interaction.user.send({ embeds: [embed] })
 			}
 		})
